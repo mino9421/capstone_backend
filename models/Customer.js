@@ -20,6 +20,11 @@ const CustomerSchema = new mongoose.Schema({
         required: true,
         match: /.+\@.+\..+/,
         trim: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true,
     },
     phone: {
         type: Number,
