@@ -1,5 +1,6 @@
 const express = require('express');
-const customerModel = require('../models/customer');
+const customerModel = require('../models/Customer');
+const reservationModel = require('../models/Reservation')
 const app = express();
 
 
@@ -61,5 +62,19 @@ app.delete('/api/v1/customers/:id', async (req, res) => {
       res.status(500).send(err)
     }
 })
+
+//create reservation
+app.post('/api/v1/reservations', async (req, res) => {
+  console.log(req.body.data)
+  const reservation = new reservationModel(req.body);
+
+  try {
+    await reservation.save();
+    res.send(reservation);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 
 module.exports = app
