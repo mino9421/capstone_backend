@@ -92,5 +92,20 @@ app.post('/api/v1/reservations', async (req, res) => {
   }
 });
 
+//retrieve reservations
+app.post('/api/v1/calendar', async (req, res) => {
+  const reservations = await reservationModel.find({ reservation_maker: req.body.customer });
+  try {
+    if(reservations !== null){
+      res.send({reservations});
+    }else{
+      res.send({error:"No reservations were found"});
+    }
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
+
 
 module.exports = app

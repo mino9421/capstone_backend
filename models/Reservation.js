@@ -25,5 +25,10 @@ const ReservationSchema = new mongoose.Schema({
     }
 });
 
+//Writing Query Helpers
+ReservationSchema.query.byCustomer = function(id){
+    return this.where({reservation_maker: id})
+}
+
 const Reservation = mongoose.model("Reservation", ReservationSchema);
 module.exports = Reservation;
