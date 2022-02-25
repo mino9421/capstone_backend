@@ -40,5 +40,12 @@ const CustomerSchema = new mongoose.Schema({
     }
 });
 
+
+//Writing Query Helpers
+CustomerSchema.query.byEmail = function(mail,pass){
+    return this.where({email: mail}).where({password: pass})
+  }
+  
+
 const Customer = mongoose.model("Customer", CustomerSchema);
 module.exports = Customer;

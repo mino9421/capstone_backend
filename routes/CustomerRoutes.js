@@ -3,6 +3,22 @@ const customerModel = require('../models/Customer');
 const reservationModel = require('../models/Reservation')
 const app = express();
 
+// login
+app.post('/login', async (req, res)=>{
+  console.log(req.body)
+  const user = await customerModel.findOne().byEmail(req.body.email,req.body.password)
+  try {
+    if(user !== null){
+      res.send({user});
+    }else{
+      res.send({error:"Password or Username are incorrect"});
+    }
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+})
+
 
 // get all customers
 app.get('/api/v1/customers', async (req, res) => {
