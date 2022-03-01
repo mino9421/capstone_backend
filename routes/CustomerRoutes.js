@@ -11,7 +11,7 @@ app.post('/login', async (req, res)=>{
     if(user !== null){
       res.send({user});
     }else{
-      res.send({email:"Password or Username are incorrect"});
+      res.send({user:{email:"Password or Username are incorrect"}});
     }
   } catch (err) {
     res.send({ error: err });
