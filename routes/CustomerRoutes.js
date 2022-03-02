@@ -57,11 +57,10 @@ app.get('/api/v1/customers/:id', async (req, res) => {
 })
 
 // update customer by id
-app.put('/api/v1/customers/:id', async (req, res) => {
+app.post('/api/v1/customers/:id', async (req, res) => {
     try {
       await customerModel.findByIdAndUpdate(req.params.id, req.body)
-      customerModel.save()
-      res.send("Complete")
+      res.send("Update Complete")
     } catch (err) {
       res.status(500).send(err)
     }
