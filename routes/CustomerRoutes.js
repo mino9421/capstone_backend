@@ -1,6 +1,7 @@
 const express = require('express');
 const customerModel = require('../models/Customer');
 const reservationModel = require('../models/Reservation')
+const restaurantModel = require('../models/Restaurant')
 const app = express();
 
 // login
@@ -100,6 +101,31 @@ app.post('/api/v1/calendar', async (req, res) => {
     }else{
       res.send({error:"No reservations were found"});
     }
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
+
+
+//create restaurant
+app.post('/api/v1/restaurant', async (req, res) => {
+  console.log(req.body.data)
+  const restaurant = new restaurantModel(req.body);
+
+  try {
+    await restaurant.save();
+    res.send(restaurant);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//retrieve restaurants
+app.post('/api/v1/restaurants', async (req, res) => {
+  const restaurants = await reservationModel.find({ managed_by: req.body.manager });
+  try {
+      res.send({restaurants});
   } catch (err) {
     res.send({ error: err });
   }
