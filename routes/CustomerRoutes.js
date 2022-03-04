@@ -132,5 +132,14 @@ app.post('/api/v1/restaurants', async (req, res) => {
 
 });
 
+app.post('/api/v1/restaurant/:id', async (req, res) => {
+    try {
+      await restaurantModel.findByIdAndUpdate(req.params.id, req.body)
+      res.send("Update Complete")
+    } catch (err) {
+      res.status(500).send(err)
+    }
+})
+
 
 module.exports = app
