@@ -123,7 +123,7 @@ app.post('/api/v1/restaurant', async (req, res) => {
 
 //retrieve restaurants
 app.post('/api/v1/restaurants', async (req, res) => {
-  const restaurants = await reservationModel.find({ managed_by: req.body.manager });
+  const restaurants = await restaurantModel.find({ managed_by: req.body.manager });
   try {
       res.send({restaurants});
   } catch (err) {

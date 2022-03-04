@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const RestaurantSchema = new mongoose.Schema({
-    Name: {
+    name: {
         type: String,
         required: true,
         trim: true,
@@ -11,18 +11,18 @@ const RestaurantSchema = new mongoose.Schema({
         required: true,
         ref: 'Customer',
     },
-    Description: {
+    description: {
         type: String,
         trim: true,
     },
-    Address: {
+    address: {
         type: String,
         required: true,
     },
-    MenuFileName: {
+    menuFileName: {
         type: String,
     },
-    Style: {
+    style: {
         type: String,
         required: true,
         trim: true,
