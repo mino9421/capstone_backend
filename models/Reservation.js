@@ -18,12 +18,13 @@ const ReservationSchema = new mongoose.Schema({
     start:{
         type: Date,
         required: true
-    },
-    end:{
-        type: Date,
-        required: true
     }
 });
+
+//Writing Query Helpers
+ReservationSchema.query.byCustomer = function(id){
+    return this.where({reservation_maker: id})
+}
 
 const Reservation = mongoose.model("Reservation", ReservationSchema);
 module.exports = Reservation;

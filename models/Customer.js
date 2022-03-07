@@ -37,7 +37,13 @@ const CustomerSchema = new mongoose.Schema({
     symptoms: {
         type: Boolean,
         default: false,
-    }
+    },
+    type: {
+        type: String,
+        required: true,
+        enum: ['customer', 'restaurant', 'admin'],
+        lowercase:true
+      }
 });
 
 

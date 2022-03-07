@@ -1,6 +1,7 @@
 const express = require('express');
 const customerModel = require('../models/Customer');
 const reservationModel = require('../models/Reservation')
+const restaurantModel = require('../models/Restaurant')
 const app = express();
 
 // login
@@ -11,7 +12,7 @@ app.post('/login', async (req, res)=>{
     if(user !== null){
       res.send({user});
     }else{
-      res.send({error:"Password or Username are incorrect"});
+      res.send({user:{email:"Password or Username are incorrect"}});
     }
   } catch (err) {
     res.send({ error: err });
@@ -57,11 +58,10 @@ app.get('/api/v1/customers/:id', async (req, res) => {
 })
 
 // update customer by id
-app.put('/api/v1/customers/:id', async (req, res) => {
+app.post('/api/v1/customers/:id', async (req, res) => {
     try {
       await customerModel.findByIdAndUpdate(req.params.id, req.body)
-      customerModel.save()
-      res.send("Complete")
+      res.send("Update Complete")
     } catch (err) {
       res.status(500).send(err)
     }
@@ -91,6 +91,55 @@ app.post('/api/v1/reservations', async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+//retrieve reservations
+app.post('/api/v1/calendar', async (req, res) => {
+  const reservations = await reservationModel.find({ reservation_maker: req.body.customer });
+  try {
+    if(reservations !== null){
+      res.send({reservations});
+    }else{
+      res.send({error:"No reservations were found"});
+    }
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
+
+
+//create restaurant
+app.post('/api/v1/restaurant', async (req, res) => {
+  console.log(req.body.data)
+  const restaurant = new restaurantModel(req.body);
+
+  try {
+    await restaurant.save();
+    res.send(restaurant);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//retrieve restaurants
+app.post('/api/v1/restaurants', async (req, res) => {
+  const restaurants = await restaurantModel.find({ managed_by: req.body.manager });
+  try {
+      res.send({restaurants});
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
+
+app.post('/api/v1/restaurant/:id', async (req, res) => {
+    try {
+      await restaurantModel.findByIdAndUpdate(req.params.id, req.body)
+      res.send("Update Complete")
+    } catch (err) {
+      res.status(500).send(err)
+    }
+})
 
 
 module.exports = app
