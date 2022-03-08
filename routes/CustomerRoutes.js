@@ -121,7 +121,7 @@ app.post('/api/v1/restaurant', async (req, res) => {
   }
 });
 
-//retrieve restaurants
+//retrieve your restaurants
 app.post('/api/v1/restaurants', async (req, res) => {
   const restaurants = await restaurantModel.find({ managed_by: req.body.manager });
   try {
@@ -132,6 +132,20 @@ app.post('/api/v1/restaurants', async (req, res) => {
 
 });
 
+//retrieve all restaurants
+app.get('/api/v1/restaurants', async (req, res) => {
+  const restaurants = await restaurantModel.find({});
+  try {
+      res.send({restaurants});
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
+
+
+
+//update Restaurant
 app.post('/api/v1/restaurant/:id', async (req, res) => {
     try {
       await restaurantModel.findByIdAndUpdate(req.params.id, req.body)
