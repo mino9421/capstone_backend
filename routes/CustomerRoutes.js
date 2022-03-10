@@ -108,6 +108,22 @@ app.post('/api/v1/calendar', async (req, res) => {
 
 });
 
+//retrieve restaurant's reservations
+app.post('/api/v1/restaurantReservations', async (req, res) => {
+  const reservations = await reservationModel.find({ reservation_at: req.body.restaurant });
+  try {
+    if(reservations !== null){
+      res.send({reservations});
+    }else{
+      res.send({error:"No reservations were found"});
+    }
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
+
+
 
 //create restaurant
 app.post('/api/v1/restaurant', async (req, res) => {
