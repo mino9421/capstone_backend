@@ -2,6 +2,7 @@ const express = require('express');
 const customerModel = require('../models/Customer');
 const reservationModel = require('../models/Reservation')
 const restaurantModel = require('../models/Restaurant')
+const profileModel = require('../models/ManualProfile')
 const app = express();
 
 // login
@@ -154,6 +155,30 @@ app.post('/api/v1/restaurant/:id', async (req, res) => {
       res.status(500).send(err)
     }
 })
+
+//create Unregistered Profile
+app.post('/api/v1/profile', async (req, res) => {
+  console.log(req.body.data)
+  const profile = new profileModel(req.body);
+
+  try {
+    await profile.save();
+    res.send(profile);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//retrieve your unregistered Profiles
+app.post('/api/v1/profiles', async (req, res) => {
+  const profiles = await profileModel.find({ reportingRestaurant: req.body.restaurant });
+  try {
+      res.send({profiles});
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
 
 
 module.exports = app
