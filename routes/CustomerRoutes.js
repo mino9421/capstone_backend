@@ -138,6 +138,16 @@ app.post('/api/v1/restaurant', async (req, res) => {
   }
 });
 
+// get restaurant by id
+app.get('/api/v1/restaurant/:id', async (req, res) => {
+  try {
+      const restaurant = await restaurantModel.findById(req.params.id)
+      res.send(restaurant)
+  } catch(err) {
+      res.status(500).send(err)
+  }
+})
+
 //retrieve your restaurants
 app.post('/api/v1/restaurants', async (req, res) => {
   const restaurants = await restaurantModel.find({ managed_by: req.body.manager });
