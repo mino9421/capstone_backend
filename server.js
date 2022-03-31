@@ -1,16 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const customerRouter = require('./routes/CustomerRoutes.js');
+
 var cors = require('cors')
 
 const app = express();
 app.use(express.json()); // Make sure it comes back as json
+
+
+
 
 //TODO - Replace you Connection String here
 mongoose.connect('mongodb+srv://Jeremy:XwqTRgFXYy3DkWBP@comp3123.cfuyr.mongodb.net/passportMeals?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+
 
 app.use(cors())
 

@@ -18,7 +18,11 @@ const ReservationSchema = new mongoose.Schema({
     start:{
         type: Date,
         required: true
-    }
+    },
+    complete: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 //Writing Query Helpers
