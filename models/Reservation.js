@@ -23,6 +23,10 @@ const ReservationSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    noShow: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 //Writing Query Helpers

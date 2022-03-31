@@ -3,6 +3,7 @@ const customerModel = require('../models/Customer');
 const reservationModel = require('../models/Reservation')
 const restaurantModel = require('../models/Restaurant')
 const profileModel = require('../models/ManualProfile')
+const employeeModel = require('../models/Employee')
 const app = express();
 
 // login
@@ -237,6 +238,17 @@ app.post('/api/v1/profiles', async (req, res) => {
   const profiles = await profileModel.find({ reportingRestaurant: req.body.restaurant });
   try {
       res.send({profiles});
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
+
+//retrieve all employees at restaurant
+app.get('/api/v1/restaurants/:id', async (req, res) => {
+  const employees = await employeeModel.find({ works_at: req.params.id});
+  try {
+      res.send({employees});
   } catch (err) {
     res.send({ error: err });
   }
