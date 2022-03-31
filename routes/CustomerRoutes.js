@@ -59,6 +59,17 @@ app.get('/api/v1/customers/:id', async (req, res) => {
     }
 })
 
+// get customer by E-mail
+app.post('/api/v1/newEmployee/', async (req, res) => {
+  try {
+      const customer = await customerModel.find({email: req.body.email})
+      console.log(customer)
+      res.send(customer)
+  } catch(err) {
+      res.status(500).send(err)
+  }
+})
+
 // update customer by id
 app.post('/api/v1/customers/:id', async (req, res) => {
     try {
