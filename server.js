@@ -1,8 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const customerRouter = require('./routes/CustomerRoutes.js');
+const bodyParser = require("body-parser");
 
 var cors = require('cors')
+
+app.use(bodyParser.urlencoded(
+  { extended:true }
+))
 
 const app = express();
 app.use(express.json()); // Make sure it comes back as json

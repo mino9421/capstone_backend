@@ -39,11 +39,12 @@ app.post('/login', async (req, res)=>{
 
 // Upload Menu
 app.post("/uploadMenu",upload.single('myMenu'),(req,res)=>{
+  console.log("This code ran")
   var menu = fs.readFileSync(req.file.path);
   var encode_menu = menu.toString('base64');
   var final_menu = {
       contentType:req.file.mimetype,
-      menu:new Buffer(encode_menu,'base64')
+      menu:new Buffer.from(encode_menu,'base64')
   };
   menuModel.create(final_menu,function(err,result){
       if(err){
