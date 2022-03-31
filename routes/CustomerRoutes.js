@@ -93,7 +93,7 @@ app.post('/api/v1/reservations', async (req, res) => {
 });
 
 // update Reservation by id
-app.post('/api/v1/customers/:id', async (req, res) => {
+app.post('/api/v1/reservation/:id', async (req, res) => {
   try {
     await reservationModel.findByIdAndUpdate(req.params.id, req.body)
     res.send("Update Complete")
