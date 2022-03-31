@@ -257,7 +257,7 @@ app.post('/api/v1/profiles', async (req, res) => {
 });
 
 //retrieve all employees at restaurant
-app.get('/api/v1/restaurants/:id', async (req, res) => {
+app.get('/api/v1/employees/:id', async (req, res) => {
   const employees = await employeeModel.find({ works_at: req.params.id});
   try {
       res.send({employees});
