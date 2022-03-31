@@ -38,7 +38,7 @@ app.post('/login', async (req, res)=>{
 })
 
 // Upload Menu
-app.post("/uploadMenu",upload.single('myMenu'),(req,res)=>{
+app.post("/uploadMenu",console.log("test"),upload.single('myMenu'),(req,res)=>{
   console.log("This code ran")
   var menu = fs.readFileSync(req.file.path);
   var encode_menu = menu.toString('base64');
