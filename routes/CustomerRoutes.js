@@ -4,6 +4,7 @@ const reservationModel = require('../models/Reservation')
 const restaurantModel = require('../models/Restaurant')
 const profileModel = require('../models/ManualProfile')
 const employeeModel = require('../models/Employee')
+const vaccinationModel = require('../models/Vaccination')
 const app = express();
 
 // login
@@ -276,6 +277,45 @@ app.post('/api/v1/roles/:id', async (req, res) => {
     } catch (err) {
       res.status(500).send(err)
     }
-})
+});
+
+//check vaccine report
+app.post('/api/v1/vaccineStatus', async (req, res) => {
+  const vaccination = await vaccinationModel.find({ customer: req.body.customer, restaurant: req.body.restaurant });
+  try {
+    if(vaccination !== null){
+      res.send({vaccination});
+    }else{
+      res.send({error:"No status reports were found"});
+    }
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
+
+
+//confirm vaccination
+app.post('/api/v1/vaccine', async (req, res) => {
+  console.log(req.body.data)
+  const vaccination = new vaccinationModel(req.body);
+
+  try {
+    await vaccination.save();
+    res.send(vaccination);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//update vaccination status
+app.post('/api/v1/vaccination/:id', async (req, res) => {
+  try {
+    await vaccintionModel.findByIdAndUpdate(req.params.id, req.body)
+    res.send("Update Complete")
+  } catch (err) {
+    res.status(500).send(err)
+  }
+});
 
 module.exports = app
