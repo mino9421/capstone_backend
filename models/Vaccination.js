@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const VaccinatedSchema = new mongoose.Schema({
+const VaccinationSchema = new mongoose.Schema({
     customer: {
         type: mongoose.Types.ObjectId,
         ref: 'Customer',
@@ -18,5 +18,5 @@ const VaccinatedSchema = new mongoose.Schema({
 });
 
 
-const Vaccination = mongoose.model("Reservation", ReservationSchema);
-module.exports = Reservation;
+const Vaccination = mongoose.model("Vaccintion", VaccinationSchema);
+module.exports = Vaccination;

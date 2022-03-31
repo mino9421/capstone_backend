@@ -255,5 +255,27 @@ app.get('/api/v1/restaurants/:id', async (req, res) => {
 
 });
 
+//create employee
+app.post('/api/v1/employee', async (req, res) => {
+  console.log(req.body.data)
+  const employee = new employeeModel(req.body);
+
+  try {
+    await employee.save();
+    res.send(employee);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//update employee
+app.post('/api/v1/roles/:id', async (req, res) => {
+    try {
+      await employeeModel.findByIdAndUpdate(req.params.id, req.body)
+      res.send("Update Complete")
+    } catch (err) {
+      res.status(500).send(err)
+    }
+})
 
 module.exports = app
