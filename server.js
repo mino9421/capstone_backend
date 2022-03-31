@@ -5,14 +5,14 @@ const bodyParser = require("body-parser");
 
 var cors = require('cors')
 
-app.use(bodyParser.urlencoded(
-  { extended:true }
-))
 
 const app = express();
 app.use(express.json()); // Make sure it comes back as json
 
 
+app.use(bodyParser.urlencoded(
+  { extended:true }
+))
 
 
 //TODO - Replace you Connection String here
