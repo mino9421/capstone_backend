@@ -3,23 +3,7 @@ const customerModel = require('../models/Customer');
 const reservationModel = require('../models/Reservation')
 const restaurantModel = require('../models/Restaurant')
 const profileModel = require('../models/ManualProfile')
-const menuModel = require('../models/MenuModel')
-const fs = require("fs");
-const path = require('path');
 const app = express();
-const multer = require("multer");
-
-// Set Storage
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-})
-
-var upload = multer({ storage: storage})
 
 // login
 app.post('/login', async (req, res)=>{
@@ -35,29 +19,7 @@ app.post('/login', async (req, res)=>{
     res.send({ error: err });
   }
 
-})
-
-// Upload Menu
-app.post("/uploadMenu",console.log("test"),upload.single('myMenu'),(req,res)=>{
-  console.log("This code ran")
-  var menu = fs.readFileSync(req.file.path);
-  var encode_menu = menu.toString('base64');
-  var final_menu = {
-      contentType:req.file.mimetype,
-      menu:new Buffer.from(encode_menu,'base64')
-  };
-  menuModel.create(final_menu,function(err,result){
-      if(err){
-          console.log(err);
-      }else{
-          console.log(result.menu.Buffer);
-          console.log("Saved To database");
-          res.contentType(final_menu.contentType);
-          res.send(final_menu.menu);
-      }
-  })
-})
-
+});
 
 // get all customers
 app.get('/api/v1/customers', async (req, res) => {
