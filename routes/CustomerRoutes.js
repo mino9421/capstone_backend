@@ -102,6 +102,18 @@ app.post('/api/v1/reservation/:id', async (req, res) => {
   }
 })
 
+// delete reservation
+app.delete('/api/v1/reservation/:id', async (req, res) => {
+  try {
+    const reservation = await reservationModel.findByIdAndDelete(req.params.id)
+
+    if (!reservation) res.status(404).send("No item found")
+    res.status(200).send()
+  } catch (err) {
+    res.status(500).send(err)
+  }
+})
+
 //retrieve reservations
 app.post('/api/v1/calendar', async (req, res) => {
   const reservations = await reservationModel.find({ reservation_maker: req.body.customer });
