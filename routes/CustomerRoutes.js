@@ -267,6 +267,17 @@ app.get('/api/v1/employees/:id', async (req, res) => {
 
 });
 
+//retrieve all employee profiles of restaurants employed at
+app.get('/api/v1/employed/:id', async (req, res) => {
+  const employees = await employeeModel.find({ employee: req.params.id});
+  try {
+      res.send({employees});
+  } catch (err) {
+    res.send({ error: err });
+  }
+
+});
+
 //create employee
 app.post('/api/v1/employee', async (req, res) => {
   console.log(req.body.data)
