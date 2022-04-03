@@ -333,7 +333,7 @@ app.post('/api/v1/vaccine', async (req, res) => {
 //update vaccination status
 app.post('/api/v1/vaccination/:id', async (req, res) => {
   try {
-    await vaccintionModel.findByIdAndUpdate(req.params.id, req.body)
+    await vaccinationModel.findByIdAndUpdate(req.params.id, req.body)
     res.send("Update Complete")
   } catch (err) {
     res.status(500).send(err)
